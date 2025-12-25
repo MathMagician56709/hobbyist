@@ -1,0 +1,34 @@
+# Python; given permutation operators alpha, beta, compose alpha[beta[]]
+import numpy as np
+a, b, c, d, e, f = input().split()
+a = int(a)
+b = int(b)
+c = int(c)
+d = int(d)
+e = int(e)
+f = int(f)
+
+alpha = {
+    1: a,
+    2: b,
+    3: c,
+}
+
+beta = {
+    1: d,
+    2: e,
+    3: f,
+}
+
+def alpha_perm(input_value):
+    return alpha.get(input_value, "Input not found")
+
+def beta_perm(input_value):
+    return beta.get(input_value, "Input not found")
+
+i = 1
+comb_perm = []
+while i <= 3:
+    comb_perm.append(alpha_perm(beta_perm(i)))
+    i = i + 1
+print(comb_perm)
