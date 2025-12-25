@@ -1,0 +1,55 @@
+# Python; enter modulo m, matrix = [a b; c d]
+import numpy as np
+m, a, b, c, d = input().split()
+m = int(m)
+a = int(a)
+b = int(b)
+c = int(c)
+d = int(d)
+alpha = np.zeros((2,2), dtype=int)
+alpha[0, 0] = a
+alpha[0, 1] = b
+alpha[1, 0] = c
+alpha[1, 1] = d
+def modprod(matuno, matdos):
+    modprod = np.zeros((2,2))
+    modprod[0, 0] = (matuno[0, 0]*matdos[0, 0] + matuno[0, 1]*matdos[1, 0]) % m
+    modprod[0, 1] = (matuno[0, 0]*matdos[0, 1] + matuno[0, 1]*matdos[1, 1]) % m
+    modprod[1, 0] = (matuno[1, 0]*matdos[0, 0] + matuno[1, 1]*matdos[1, 0]) % m
+    modprod[1, 1] = (matuno[1, 0]*matdos[0, 1] + matuno[1, 1]*matdos[1, 1]) % m
+    return modprod
+
+beta = np.zeros((2,2), dtype=int)
+beta[0, 0] = a
+beta[0, 1] = b
+beta[1, 0] = c
+beta[1, 1] = d
+
+det = ((a*d)-(b*c)) % m
+x = 1
+# i must be the smaller one
+codivisors = []
+while x <= m:
+    w = m % x
+    v = det % x
+    if w == 0 and v == 0:
+        codivisors.append(x)
+    x = x + 1
+
+def largest(arr, n):
+    max = arr[0]
+    for i in range(1, n):
+        if arr[i] > max:
+            max = arr[i]
+    return max
+
+lenco = len(codivisors)
+gcd = largest(codivisors, lenco)
+p = 1
+if gcd == 1:
+    while not(np.array_equal(alpha, np.identity(2, dtype=int))):
+        alpha = modprod(alpha, beta)
+        p = p + 1
+    print('The multiplicative order of the matrix is', str(p))
+else:
+    print('The matrix is not invertible.')
