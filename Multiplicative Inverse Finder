@@ -1,0 +1,34 @@
+# In the Integers Modulo m ; find multiplicative inverse of the integer a
+m, a = input().split()
+m = int(m)
+a = int(a) % m
+# Find gcd(m,a)
+x = 1
+codivisors = []
+while x <= a:
+    i = m % x
+    j = a % x
+    if i == 0 and j == 0:
+        codivisors.append(x)
+    x = x + 1
+
+def largest(arr, n):
+    max = arr[0]
+    for k in range(1, n):
+        if arr[k] > max:
+            max = arr[k]
+    return max
+
+n = len(codivisors)
+gcd = largest(codivisors, n)
+print("gcd = ", gcd)
+# Find a multiplicative inverse
+if gcd == 1:
+    w = 1
+    while w<m:
+        u = a*w
+        if u%m == 1:
+            print(w)
+        w = w + 1
+else:
+    print("No multiplicative inverse exists.")
