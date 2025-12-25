@@ -1,0 +1,44 @@
+# Python; enter modulo m, matrix one = [a b; c d], matrix two = [e f; g h], in order letters appear here
+import numpy as np
+m, a, b, c, d, e, f, g, h = input().split()
+m = int(m)
+a = int(a)
+b = int(b)
+c = int(c)
+d = int(d)
+e = int(e)
+f = int(f)
+g = int(g)
+h = int(h)
+alpha = np.zeros((2,2), dtype=int)
+beta = np.zeros((2,2), dtype=int)
+alpha[0, 0] = a
+alpha[0, 1] = b
+alpha[1, 0] = c
+alpha[1, 1] = d
+beta[0, 0] = e
+beta[0, 1] = f
+beta[1, 0] = g
+beta[1, 1] = h
+def modsum(matone, mattwo):
+    modsum = np.zeros((2,2))
+    i = 0
+    j = 0
+    while i <= 1:
+        while j <= 1:
+            modsum[i, j] = (matone[i, j] + mattwo[i, j]) % m
+            j = j + 1
+        i = i + 1
+        j = 0
+    print('The sum of the matrices in the integers modulo',m ,'=')
+    print(modsum)
+modsum(alpha, beta)
+def modprod(matuno, matdos):
+    modprod = np.zeros((2,2))
+    modprod[0, 0] = (matuno[0, 0]*matdos[0, 0] + matuno[0, 1]*matdos[1, 0]) % m
+    modprod[0, 1] = (matuno[0, 0]*matdos[0, 1] + matuno[0, 1]*matdos[1, 1]) % m
+    modprod[1, 0] = (matuno[1, 0]*matdos[0, 0] + matuno[1, 1]*matdos[1, 0]) % m
+    modprod[1, 1] = (matuno[1, 0]*matdos[0, 1] + matuno[1, 1]*matdos[1, 1]) % m
+    print('The product of the matrices in the integers modulo',m ,'=')
+    print(modprod)
+modprod(alpha, beta)
