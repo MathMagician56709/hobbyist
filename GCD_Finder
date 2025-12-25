@@ -1,3 +1,4 @@
+# Python
 # GCD Finder
 i, j = input().split()
 i = int(i)
