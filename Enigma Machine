@@ -1,0 +1,44 @@
+# Python; Enigma Machine (De)Cipherer, given rotor wiring; does not include plugboard
+#User Inputs
+Ainput = input("Please enter the wiring of Rotor A as a sequence of integers with spaces in between each value: ")
+A = [int(num) for num in Ainput.split()]
+Binput = input("Please enter the wiring of Rotor B as a sequence of integers with spaces in between each value: ")
+B = [int(num) for num in Binput.split()]
+Rinput = input("Please enter the wiring of Rotor R as a sequence of integers with spaces in between each value: ")
+R = [int(num) for num in Rinput.split()]
+a = int(input("Please enter the offset for Rotor A: "))
+b = int(input("Please enter the offset for Rotor B: "))
+messageinput = input("Please enter your cipher text: ")
+#Subroutine to invert lists for return trip
+def inverse_list(lst):
+  inverse = [0] * len(lst)
+  for i, value in enumerate(lst):
+      inverse[value] = i
+  return inverse
+A1 = inverse_list(A)
+B1 = inverse_list(B)
+#Subroutine converting the message string to list with integer elements ranged 0-25
+message = list(messageinput.upper())
+def char_to_num():
+    return [ord(char) -65 for char in message]
+conmessage = char_to_num()
+#Ciphering/Deciphering process
+i = 0
+deciphcode = []
+while i < len(conmessage):
+  x = conmessage[i]
+  if x >= 0:
+    x = A[(x+a)%26]
+    x = B[(x+b)%26]
+    x = R[x]
+    x = (B1[x] - b)%26
+    x = (A1[x] - a)%26
+    a = (a + 1) % 26
+    if a == 0:
+      b = (b + 1) % 26
+  deciphcode.append(x)
+  i = i + 1
+#Mapping (de)ciphered list back to ASCII and printing output
+def num_to_char():
+  return [chr(num + 65) for num in deciphcode]
+print("Your (de)ciphered text is: ",''.join(num_to_char()))
