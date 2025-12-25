@@ -1,4 +1,4 @@
-# In the Integers Modulo m ; find multiplicative inverse of the integer a
+# Python; In the Integers Modulo m ; find multiplicative inverse of the integer a
 m, a = input().split()
 m = int(m)
 a = int(a) % m
